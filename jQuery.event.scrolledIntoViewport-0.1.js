@@ -1,3 +1,5 @@
+(function($){
+
 $.event.special.scrolledIntoViewport = {
   setup: function(options) {
     options = $.extend({
@@ -25,3 +27,5 @@ $.event.special.scrolledIntoViewport = {
     return false;
   }
 };
+
+}(jQuery));
