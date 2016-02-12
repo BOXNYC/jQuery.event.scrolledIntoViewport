@@ -1,6 +1,6 @@
 (function($){
 
-$.event.special.scrolledIntoViewport = {
+$.event.special.viewportScroll = {
   setup: function(options) {
     options = $.extend({
       scrollPane: document
