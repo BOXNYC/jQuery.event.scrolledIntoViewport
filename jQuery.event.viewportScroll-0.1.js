@@ -1,5 +1,3 @@
-(function($){
-
 $.event.special.viewportScroll = {
   setup: function(options) {
     options = $.extend({
@@ -7,15 +5,16 @@ $.event.special.viewportScroll = {
     }, options);
     var $items = $(this),
       $scrollPane = $(options.scrollPane);
-    $items.data('scrolledIntoViewport', {
+    $items.data('viewportScroll', {
 	    scrollPane: options.scrollPane
     });
-    $scrollPane.on('scroll.scrolledIntoViewport', function(){
+    $scrollPane.on('scroll.viewportScroll', function(){
       $items.each(function(){
-        var $item = $(this);
-        $item.trigger('scrolledIntoViewport', {
-	        top: $item.offset().top - $scrollPane.scrollTop()
-        });
+        var $item = $(this),
+		        e = $.Event('viewportScroll', {
+							top: $item.offset().top - $scrollPane.scrollTop()
+		        });
+        $item.trigger(e);
       });
     });
     return false;
@@ -26,6 +25,10 @@ $.event.special.viewportScroll = {
     $(data.scrollPane).off('scroll.scrolledIntoViewport');
     return false;
   }
+};
+
+$.fn.viewportScroll = function(listener){
+	$(this).on('viewportScroll', listener);
 };
 
 }(jQuery));
